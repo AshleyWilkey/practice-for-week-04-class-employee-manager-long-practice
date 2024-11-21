@@ -1,35 +1,35 @@
-const chai = require('chai');
+const chai = require("chai");
 const expect = chai.expect;
-const spies = require('chai-spies');
+const spies = require("chai-spies");
 chai.use(spies);
 
-const Employee = require('../employee');
-const Manager = require('../manager');
+const { Employee } = require("../dist/classes/employee");
+const { Manager } = require("../dist/classes/manager");
 
-describe('Adding employees dynamically', () => {
-    let splinter;
-    beforeEach(() => {
-        splinter = new Manager('Splinter', 100000, 'Sensei');
-    });
+describe("Adding employees dynamically", () => {
+  let splinter;
+  beforeEach(() => {
+    splinter = new Manager("Splinter", 100000, "Sensei");
+  });
 
-    it('should be called from the Employee constructor if a manager is passed in', () => {
-        const spy = chai.spy.on(splinter, 'addEmployee');
-        const leo = new Employee('Leonardo', 90000, 'Ninja', splinter);
-        
-        expect(spy).to.have.been.called()
-    });
+  it("should be called from the Employee constructor if a manager is passed in", () => {
+    const spy = chai.spy.on(splinter, "addEmployee");
+    const leo = new Employee("Leonardo", 90000, "Ninja", splinter);
 
-    it("should add a newly instantiated Employee to the passed in Manager's array", () => {
-        const employees = splinter.employees;
+    expect(spy).to.have.been.called();
+  });
 
-        expect(employees).to.eql([]);
+  it("should add a newly instantiated Employee to the passed in Manager's array", () => {
+    const employees = splinter.employees;
 
-        const leo = new Employee('Leonardo', 90000, 'Ninja', splinter);
-       
-        expect(employees).to.eql([leo]);
+    expect(employees).to.eql([]);
 
-        const raph = new Employee('Raphael', 90000, 'Ninja', splinter);
+    const leo = new Employee("Leonardo", 90000, "Ninja", splinter);
 
-        expect(employees).to.eql([leo, raph]);
-    });
+    expect(employees).to.eql([leo]);
+
+    const raph = new Employee("Raphael", 90000, "Ninja", splinter);
+
+    expect(employees).to.eql([leo, raph]);
+  });
 });
